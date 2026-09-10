@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una pequeña sorpresa 🎁</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body{
+  overflow:hidden; color:#fff;
+  background:radial-gradient(circle at top,#5d2b72 0,#21163f 45%,#0d1028 100%);
+}
+#stars,#confetti{position:fixed;inset:0;pointer-events:none}
+.star{
+  position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;
+  animation:twinkle 2.2s infinite ease-in-out;opacity:.75
+}
+@keyframes twinkle{50%{opacity:.15;transform:scale(.4)}}
+.screen{
+  position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:22px;z-index:2
+}
+.card{
+  width:min(92vw,560px);padding:34px 25px;border-radius:28px;text-align:center;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(14px);box-shadow:0 20px 70px rgba(0,0,0,.35)
+}
+h1{font-size:clamp(30px,8vw,52px);margin:8px 0 12px}
+p{font-size:18px;line-height:1.65;margin:10px 0}
+.gift{font-size:86px;filter:drop-shadow(0 8px 18px rgba(0,0,0,.3));animation:bob 1.7s infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(2deg)}}
+button{
+  border:0;border-radius:999px;padding:15px 28px;font-size:18px;font-weight:800;
+  color:#3a173d;background:#ffd8ef;box-shadow:0 8px 25px rgba(255,111,190,.25);
+  cursor:pointer;margin-top:18px
+}
+button:active{transform:scale(.97)}
+.hidden{display:none!important}
+.letter{
+  max-height:76vh;overflow:auto;text-align:left;padding:24px;border-radius:22px;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16)
+}
+.letter p{font-size:17px}
+.center{text-align:center}
+.final{font-size:clamp(34px,9vw,62px);font-weight:900;text-shadow:0 4px 25px rgba(255,210,245,.35)}
+.conf{
+ position:absolute;width:10px;height:18px;border-radius:2px;top:-30px;
+ animation:fall 3.2s linear forwards;
+}
+@keyframes fall{to{transform:translate3d(var(--x),110vh,0) rotate(720deg);opacity:.9}}
+.fade{animation:fade .8s ease}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.small{opacity:.75;font-size:13px!important}
+
+/* --- Pantalla inicial espectacular --- */
+.welcome-card{position:relative;overflow:hidden;padding-top:26px}
+.welcome-card:before{
+ content:"";position:absolute;inset:-2px;border-radius:30px;
+ background:linear-gradient(120deg,rgba(255,255,255,.12),transparent 35%,rgba(255,150,220,.10));
+ pointer-events:none
+}
+.mini-stars{font-size:15px;letter-spacing:2px;opacity:.8;animation:floatText 3s ease-in-out infinite}
+.eyebrow{font-size:12px;letter-spacing:3px;font-weight:800;opacity:.82;margin-top:13px}
+.welcome-card h1{margin:8px 0 4px;font-size:clamp(38px,10vw,62px);background:linear-gradient(90deg,#fff,#ffd9f1,#fff);-webkit-background-clip:text;color:transparent}
+.intro{font-size:16px;opacity:.85;margin-bottom:0}
+.gift-scene{height:255px;position:relative;display:flex;align-items:center;justify-content:center;margin:2px 0 -4px}
+.gift-box{position:absolute;width:150px;height:112px;top:105px;border-radius:9px 9px 16px 16px;
+ background:linear-gradient(145deg,#ff75bd,#b93c91);box-shadow:0 20px 35px rgba(0,0,0,.3),inset 0 3px 12px rgba(255,255,255,.25);animation:giftFloat 2.2s ease-in-out infinite}
+.gift-lid{position:absolute;width:170px;height:40px;top:84px;border-radius:9px;background:linear-gradient(145deg,#ff9ad0,#c54b9d);
+ box-shadow:0 9px 18px rgba(0,0,0,.22);z-index:3;animation:lidFloat 2.2s ease-in-out infinite}
+.gift-lid span,.ribbon-v,.ribbon-h{background:#ffe28a;box-shadow:0 0 10px rgba(255,226,138,.25)}
+.gift-lid span{position:absolute;width:22px;height:40px;left:74px;top:0;border-radius:4px}
+.ribbon-v{position:absolute;width:24px;height:112px;left:63px;top:0}
+.ribbon-h{position:absolute;width:150px;height:20px;left:0;top:42px}
+.glow{position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,126,213,.23);filter:blur(28px);animation:glowPulse 2.2s infinite}
+.spark{position:absolute;color:#ffe9fa;font-size:28px;text-shadow:0 0 15px #fff;animation:sparkle 1.8s infinite}
+.s1{top:57px;left:19%}.s2{top:130px;right:15%;animation-delay:.4s}.s3{top:38px;right:24%;animation-delay:.8s}.s4{top:155px;left:14%;animation-delay:1.1s}
+.magic-btn{position:relative;z-index:5;min-width:260px;padding:17px 24px;color:#4b174c;background:linear-gradient(90deg,#ffd8ee,#ffe8a9,#ffd8ee);background-size:200% 100%;animation:buttonShine 3s linear infinite;box-shadow:0 10px 35px rgba(255,122,195,.35)}
+.magic-btn span{margin:0 4px}
+.aurora{position:absolute;width:55vw;height:35vw;border-radius:50%;filter:blur(55px);opacity:.18;pointer-events:none}
+.aurora1{background:#ff55c8;top:-10%;left:-15%;animation:aurora 8s infinite alternate}
+.aurora2{background:#6d8cff;bottom:-15%;right:-15%;animation:aurora 10s infinite alternate-reverse}
+@keyframes giftFloat{50%{transform:translateY(-7px)}}
+@keyframes lidFloat{50%{transform:translateY(-11px) rotate(-1deg)}}
+@keyframes glowPulse{50%{transform:scale(1.13);opacity:.55}}
+@keyframes sparkle{0%,100%{opacity:.25;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(15deg)}}
+@keyframes buttonShine{to{background-position:200% 0}}
+@keyframes floatText{50%{transform:translateY(-3px);opacity:1}}
+@keyframes aurora{to{transform:translate(45px,25px) scale(1.2)}}
+@media(max-width:480px){.gift-scene{height:230px}.gift-box{top:95px}.gift-lid{top:74px}.welcome-card{padding-left:18px;padding-right:18px}}
+</style>
+</head>
+<body>
+<div id="stars"></div><div id="confetti"></div>
+
+<section id="welcome" class="screen">
+  <div class="aurora aurora1"></div><div class="aurora aurora2"></div>
+  <div class="card welcome-card fade">
+    <div class="mini-stars">✦　·　✧　·　✦　·　✧</div>
+    <div class="eyebrow">✨ UNA PEQUEÑA SORPRESA ✨</div>
+    <h1>Esto es para ti</h1>
+    <p class="intro">Hay algo especial esperando a que lo descubras...</p>
+
+    <div class="gift-scene">
+      <div class="glow"></div>
+      <div class="gift-lid"><span></span></div>
+      <div class="gift-box"><div class="ribbon-v"></div><div class="ribbon-h"></div></div>
+      <div class="spark s1">✦</div><div class="spark s2">✧</div>
+      <div class="spark s3">✦</div><div class="spark s4">✧</div>
+    </div>
+
+    <button id="openBtn" class="magic-btn">
+      <span>🎀</span> ABRIR MI SORPRESA <span>✨</span>
+    </button>
+    <p class="small">Toca para descubrirla</p>
+  </div>
+</section>
+
+<section id="letterScreen" class="screen hidden">
+  <div class="card fade">
+    <div class="center" style="font-size:45px">💌✨</div>
+    <div class="letter">
+      <p><strong>Para ti, en este día tan especial...</strong></p>
+      <p>🎂 ¡Feliz cumpleaños!</p>
+      <p>Hoy quiero desearte un día lleno de momentos bonitos, sonrisas y personas que te hagan sentir especial. ❤️</p>
+      <p>También quiero recordarte que <strong>eres una persona muy especial y maravillosa</strong>, y que nunca debes dejar de confiar en ti misma, incluso cuando las cosas no salgan como esperabas.</p>
+      <p>✨ Que este nuevo año de tu vida venga cargado de cosas bonitas, sueños cumplidos y muchísimos momentos para recordar. Nunca olvides que <strong>cada sacrificio y cada esfuerzo tiene su recompensa</strong>, así que sigue adelante y nunca dejes de creer en todo lo que eres capaz de lograr.</p>
+      <p>🥳 Espero que disfrutes muchísimo tu día, que sonrías mucho y que recibas todo el cariño que mereces. <strong>Feliz cumpleaños</strong> y que vengan muchísimas cosas bonitas para ti. ❤️🎉</p>
+    </div>
+    <div class="center"><button id="finalBtn">Tengo una última sorpresa ✨</button></div>
+  </div>
+</section>
+
+<section id="finalScreen" class="screen hidden">
+  <div class="card fade center">
+    <div style="font-size:70px">🎂🎉</div>
+    <div class="final">¡Feliz cumpleaños! ✨</div>
+    <p>Que nunca te falten motivos para sonreír y seguir brillando. 🌟</p>
+    <div style="font-size:42px">🎈💖🥳✨</div>
+  </div>
+</section>
+
+<script>
+const stars=document.getElementById('stars');
+for(let i=0;i<90;i++){
+  const s=document.createElement('i'); s.className='star';
+  s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+  s.style.animationDelay=(Math.random()*2.5)+'s'; s.style.opacity=(.25+Math.random()*.75);
+  stars.appendChild(s);
+}
+function confetti(count=100){
+  const box=document.getElementById('confetti');
+  for(let i=0;i<count;i++){
+    const c=document.createElement('i'); c.className='conf';
+    c.style.left=(Math.random()*100)+'%';
+    c.style.setProperty('--x',(Math.random()*180-90)+'px');
+    c.style.background=['#ffd166','#ff7ab6','#8be9fd','#b8f28b','#fff'][i%5];
+    c.style.animationDelay=(Math.random()*1.2)+'s';
+    box.appendChild(c); setTimeout(()=>c.remove(),4500);
+  }
+}
+// Melodía instrumental generada por el navegador: no necesita descargar una canción.
+let audioCtx, master;
+const notes={C4:261.63,D4:293.66,E4:329.63,G4:392.00,A4:440.00,C5:523.25,D5:587.33,E5:659.25,G5:783.99};
+function melody(){
+  if(!audioCtx){
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    master=audioCtx.createGain(); master.gain.value=.055; master.connect(audioCtx.destination);
+  }
+  const seq=['C4','E4','G4','E4','A4','G4','E4','D4','C4','E4','G4','C5','A4','G4','E4','D4'];
+  const start=audioCtx.currentTime+.05;
+  seq.forEach((n,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='sine'; o.frequency.value=notes[n];
+    const t=start+i*.42;
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.7,t+.04);
+    g.gain.exponentialRampToValueAtTime(.001,t+.38);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+.4);
+  });
+  setTimeout(melody, seq.length*420);
+}
+document.getElementById('openBtn').onclick=()=>{
+  document.getElementById('welcome').classList.add('hidden');
+  document.getElementById('letterScreen').classList.remove('hidden');
+  confetti(130); melody();
+};
+document.getElementById('finalBtn').onclick=()=>{
+  document.getElementById('letterScreen').classList.add('hidden');
+  document.getElementById('finalScreen').classList.remove('hidden');
+  confetti(180);
+};
+</script>
+</body>
+</html>
