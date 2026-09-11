@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una sorpresa para ti 🎂</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+body{
+  background:radial-gradient(circle at 50% 30%,#4b1f75 0,#170d35 38%,#070817 100%);
+  color:#fff;
+}
+.scene{
+  position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.aurora{position:absolute;inset:-30%;filter:blur(55px);opacity:.55;animation:aurora 10s ease-in-out infinite alternate}
+.aurora:before,.aurora:after{content:"";position:absolute;border-radius:50%}
+.aurora:before{width:55%;height:45%;left:10%;top:15%;background:#ff4fb3}
+.aurora:after{width:50%;height:40%;right:10%;bottom:15%;background:#5d6bff}
+@keyframes aurora{to{transform:rotate(12deg) scale(1.08)}}
+
+.stars,.confetti{position:absolute;inset:0;pointer-events:none}
+.star{position:absolute;font-size:14px;animation:twinkle 2s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1.25)}}
+
+.card{
+  position:relative;z-index:2;width:min(92vw,560px);padding:34px 24px 30px;text-align:center;
+  border:1px solid rgba(255,255,255,.22);border-radius:30px;
+  background:rgba(10,8,30,.48);backdrop-filter:blur(14px);
+  box-shadow:0 25px 80px rgba(0,0,0,.5);
+}
+.badge{font-size:13px;letter-spacing:3px;color:#ffd7f2;font-weight:bold}
+h1{font-size:clamp(30px,8vw,52px);margin:12px 0 6px;text-shadow:0 4px 20px rgba(255,100,190,.4)}
+.subtitle{font-size:17px;opacity:.85;margin:0 0 24px}
+.gift-wrap{height:260px;display:flex;align-items:center;justify-content:center;position:relative}
+.gift{position:relative;width:180px;height:150px;animation:float 3s ease-in-out infinite;cursor:pointer}
+@keyframes float{50%{transform:translateY(-13px)}}
+.box{position:absolute;bottom:0;width:180px;height:120px;border-radius:8px 8px 14px 14px;background:linear-gradient(135deg,#ff5a9f,#d62c70);box-shadow:0 18px 35px rgba(0,0,0,.35)}
+.box:before{content:"";position:absolute;left:72px;top:0;width:36px;height:120px;background:#ffd45c}
+.lid{position:absolute;z-index:2;left:-8px;top:8px;width:196px;height:42px;border-radius:8px;background:linear-gradient(135deg,#ff79b0,#e2387a);box-shadow:0 8px 15px rgba(0,0,0,.3);transform-origin:center bottom;transition:transform 1s ease}
+.lid:before{content:"";position:absolute;left:80px;top:0;width:36px;height:42px;background:#ffd45c}
+.bow{position:absolute;z-index:4;left:72px;top:-23px;width:36px;height:36px;background:#ffd45c;border-radius:50%}
+.bow:before,.bow:after{content:"";position:absolute;top:-6px;width:52px;height:32px;border:9px solid #ffd45c}
+.bow:before{right:18px;border-radius:70% 20% 70% 20%;transform:rotate(-25deg)}
+.bow:after{left:18px;border-radius:20% 70% 20% 70%;transform:rotate(25deg)}
+.open .lid{transform:translateY(-95px) rotate(-12deg)}
+.spark{position:absolute;font-size:24px;animation:spark 2.2s infinite}
+.s1{left:7%;top:18%}.s2{right:8%;top:27%;animation-delay:.5s}.s3{left:14%;bottom:16%;animation-delay:1s}.s4{right:13%;bottom:12%;animation-delay:1.4s}
+@keyframes spark{50%{transform:translateY(-15px) rotate(15deg);opacity:.5}}
+
+button{
+  border:0;border-radius:999px;padding:16px 26px;font-size:16px;font-weight:800;color:#3b1231;
+  background:linear-gradient(90deg,#ffd85a,#ff8fc6);box-shadow:0 10px 28px rgba(255,104,180,.35);
+  cursor:pointer;transition:.2s;
+}
+button:hover{transform:translateY(-2px) scale(1.02)}
+.hint{margin-top:12px;font-size:12px;opacity:.6}
+
+.letter-screen{
+  position:absolute;inset:0;z-index:10;display:none;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 20%,#5a277c,#130d2e 55%,#050611);
+  padding:20px;overflow:auto;
+}
+.letter-screen.show{display:flex;animation:fade .8s ease}
+.letter{
+  width:min(92vw,650px);max-height:90vh;overflow:auto;padding:32px 26px;border-radius:25px;
+  background:rgba(255,255,255,.95);color:#3b2340;box-shadow:0 25px 80px rgba(0,0,0,.55);
+  text-align:left;
+}
+.letter h2{text-align:center;color:#b32c70;margin-top:0}
+.letter p{font-size:16px;line-height:1.7;margin:12px 0}
+.close{display:block;margin:20px auto 0;background:#b32c70;color:white}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.particle{position:absolute;top:-20px;width:9px;height:15px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="aurora"></div>
+  <div class="stars" id="stars"></div>
+  <div class="spark s1">✨</div><div class="spark s2">💫</div><div class="spark s3">✨</div><div class="spark s4">⭐</div>
+
+  <main class="card">
+    <div class="badge">✨ UNA PEQUEÑA SORPRESA ✨</div>
+    <h1>Esto es para ti</h1>
+    <p class="subtitle">Hay algo especial esperando a que lo descubras...</p>
+
+    <div class="gift-wrap">
+      <div class="gift" id="gift">
+        <div class="lid"></div><div class="bow"></div><div class="box"></div>
+      </div>
+    </div>
+
+    <button id="openBtn">🎀 ABRIR MI SORPRESA ✨</button>
+    <div class="hint">Toca el botón y deja que comience la sorpresa 💖</div>
+  </main>
+
+  <section class="letter-screen" id="letterScreen">
+    <div class="letter">
+      <h2>💌 Para ti, en este día tan especial...</h2>
+      <p>🎂 ¡Feliz cumpleaños!</p>
+      <p>Hoy quiero desearte un día lleno de momentos bonitos, sonrisas y personas que te hagan sentir especial. ❤️</p>
+      <p>También quiero recordarte que <strong>eres una persona muy especial y maravillosa</strong>, y que nunca debes dejar de confiar en ti misma, incluso cuando las cosas no salgan como esperabas.</p>
+      <p>✨ Que este nuevo año de tu vida venga cargado de cosas bonitas, sueños cumplidos y muchísimos momentos para recordar. Nunca olvides que <strong>cada sacrificio y cada esfuerzo tiene su recompensa</strong>, así que sigue adelante y nunca dejes de creer en todo lo que eres capaz de lograr.</p>
+      <p>🥳 Espero que disfrutes muchísimo tu día, que sonrías mucho y que recibas todo el cariño que mereces. <strong>Feliz cumpleaños</strong> y que vengan muchísimas cosas bonitas para ti. ❤️🎉</p>
+      <button class="close" id="closeBtn">💖 Volver a la sorpresa</button>
+    </div>
+  </section>
+</div>
+
+<script>
+const stars=document.getElementById('stars');
+for(let i=0;i<42;i++){
+  const s=document.createElement('div');s.className='star';s.textContent=i%5===0?'✦':'·';
+  s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
+  s.style.animationDelay=(Math.random()*2)+'s';s.style.fontSize=(8+Math.random()*15)+'px';
+  stars.appendChild(s);
+}
+let audioCtx;
+function melody(){
+  try{
+    audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+    const notes=[261.63,329.63,392,523.25,392,329.63,293.66,349.23,440,523.25,440,349.23];
+    notes.forEach((f,i)=>{
+      const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,audioCtx.currentTime+i*.25);
+      g.gain.exponentialRampToValueAtTime(.045,audioCtx.currentTime+i*.25+.03);
+      g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+i*.25+.23);
+      o.connect(g);g.connect(audioCtx.destination);o.start(audioCtx.currentTime+i*.25);o.stop(audioCtx.currentTime+i*.25+.25);
+    });
+  }catch(e){}
+}
+function confetti(){
+  const box=document.querySelector('.confetti')||document.body.appendChild(Object.assign(document.createElement('div'),{className:'confetti'}));
+  for(let i=0;i<100;i++){
+    const p=document.createElement('i');p.className='particle';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDuration=(2+Math.random()*3)+'s';
+    p.style.background=`hsl(${Math.random()*360},90%,65%)`;
+    p.style.transform=`rotate(${Math.random()*360}deg)`;
+    box.appendChild(p);setTimeout(()=>p.remove(),5500);
+  }
+}
+const gift=document.getElementById('gift');
+const btn=document.getElementById('openBtn');
+const screen=document.getElementById('letterScreen');
+btn.onclick=()=>{gift.classList.add('open');confetti();melody();setTimeout(()=>screen.classList.add('show'),900)};
+gift.onclick=()=>btn.click();
+document.getElementById('closeBtn').onclick=()=>screen.classList.remove('show');
+</script>
+</body>
+</html>
